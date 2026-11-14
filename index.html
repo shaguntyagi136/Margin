@@ -1,13 +1,1152 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>research-paper-app</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_blank" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>
+@layer base {
+  html, body { margin: 0; padding: 0; scroll-behavior: smooth; }
+  body { overscroll-behavior: none; }
+  main > :first-child { margin-top: 0 !important; }
+  main > :last-child { margin-bottom: 0 !important; }
+}
+::-webkit-scrollbar { display: none; }
+
+/* Custom Keyframes for Fluid Floating & Craft Depth */
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(0.3deg); }
+}
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(8px); }
+}
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+@keyframes badgeGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(30, 58, 52, 0.15); }
+  50% { box-shadow: 0 0 0 6px rgba(30, 58, 52, 0.05); }
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Utilities for animations & micro-interactions */
+.anim-gentle-float { animation: gentleFloat 6s ease-in-out infinite; }
+.anim-float-slow { animation: floatSlow 7s ease-in-out infinite; }
+.anim-float-reverse { animation: floatReverse 8s ease-in-out infinite; }
+.badge-glow-anim { animation: badgeGlow 3s ease-in-out infinite; }
+.cursor-blink { animation: cursorBlink 1s step-end infinite; }
+
+/* Scroll Reveal States */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger transition delays */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+
+/* Interactive Hover Enhancements */
+.hover-craft-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+}
+.hover-craft-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 32px -8px rgba(30, 58, 52, 0.09), 0 4px 12px -2px rgba(30, 58, 52, 0.04);
+}
+.hover-craft-card:hover .icon-bounce {
+  transform: scale(1.08) rotate(-2deg);
+}
+.icon-bounce {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Perspective Mockup Wrapper */
+.mockup-perspective {
+  perspective: 1400px;
+}
+.mockup-layer {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+/* Accessible Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .anim-float-slow, .anim-gentle-float, .anim-float-reverse {
+    animation: none !important;
+  }
+}
+
+/* MARGIN typography overrides: interface hierarchy and IEEE preview */
+body,
+body *:not(.material-symbols-outlined) {
+  font-family: "Times New Roman", Times, serif;
+}
+
+/* Website interface defaults */
+body {
+  font-size: 10pt;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h1 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 24pt;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: none;
+}
+
+h2 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 10pt;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 10pt;
+  font-weight: 700;
+  font-style: italic;
+  text-transform: none;
+}
+
+h4 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 10pt;
+  font-weight: 400;
+  font-style: italic;
+  text-transform: none;
+}
+
+p {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 10pt;
+  font-weight: 400;
+  font-style: normal;
+}
+
+nav a,
+footer a,
+aside,
+nav,
+footer {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 10pt;
+  font-weight: 400;
+  font-style: normal;
+}
+
+button,
+button *,
+a[role="button"] {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 10pt;
+  font-weight: 700;
+  font-style: normal;
+}
+
+label {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 9pt;
+  font-weight: 700;
+  font-style: normal;
+}
+
+input,
+select,
+textarea {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 10pt;
+  font-weight: 400;
+  font-style: normal;
+}
+
+input::placeholder,
+textarea::placeholder {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 9pt;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Small interface metadata, status text, captions and helper information */
+.font-label-sm,
+.font-label-sm *,
+.text-\\[10px\\],
+.text-\\[11px\\],
+.text-xs,
+footer .text-outline,
+#heroMockup .font-label-sm,
+#heroMockup .text-\\[10px\\],
+#heroMockup .text-\\[11px\\] {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 8pt;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Preserve icon glyphs from the existing Material Symbols font. */
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined" !important;
+}
+
+/* IEEE paper miniature preview: keep its typography isolated from the UI. */
+#heroMockup .font-mono {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 8pt;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#heroMockup .font-mono > .text-center.font-bold {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 24pt;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+#heroMockup .font-mono > .text-center.text-\\[7px\\] {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 11pt;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#heroMockup .font-mono p {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 9pt;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#heroMockup .font-mono p.font-semibold,
+#heroMockup .font-mono p.font-bold {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 9pt;
+  font-weight: 700;
+  font-style: normal;
+}
+
+#heroMockup .font-mono .text-\\[6\\.5px\\] {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 9pt;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#heroMockup .font-mono .text-\\[7px\\]:not(p) {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 8pt;
+  font-weight: 400;
+  font-style: normal;
+}
+
+</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"error":"#ba1a1a","primary-fixed":"#cae9e0","on-tertiary-fixed-variant":"#394a45","surface-container-lowest":"#ffffff","on-secondary-fixed":"#00201a","surface-container-highest":"#dae2fd","primary-container":"#1e3a34","secondary-fixed-dim":"#a1d0c3","inverse-surface":"#283044","surface-variant":"#dae2fd","inverse-primary":"#aecdc4","surface-container-high":"#e2e7ff","primary":"#06241f","on-tertiary":"#ffffff","secondary":"#3a665c","on-background":"#131b2e","tertiary-fixed":"#d3e7e0","surface":"#faf8ff","tertiary-fixed-dim":"#b7cbc4","on-secondary":"#ffffff","on-secondary-container":"#3e6b60","on-error-container":"#93000a","outline":"#727976","on-error":"#ffffff","surface-dim":"#d2d9f4","surface-container-low":"#f2f3ff","error-container":"#ffdad6","inverse-on-surface":"#eef0ff","on-tertiary-fixed":"#0d1f1b","on-primary-fixed":"#02201b","primary-fixed-dim":"#aecdc4","secondary-container":"#baeadc","on-primary":"#ffffff","on-primary-fixed-variant":"#304c46","tertiary":"#11231f","secondary-fixed":"#bcecdf","surface-tint":"#48645d","outline-variant":"#c1c8c5","on-primary-container":"#86a49c","background":"#faf8ff","on-surface":"#131b2e","surface-bright":"#faf8ff","on-tertiary-container":"#8ea19b","surface-container":"#eaedff","on-secondary-fixed-variant":"#214e45","on-surface-variant":"#414846","tertiary-container":"#273833"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"gutter-desktop":"1.5rem","margin":"1rem","space-md":"0.875rem","space-2xl":"2.5rem","space-xl":"1.75rem","margin-desktop":"1.5rem","space-sm":"0.5rem","space-lg":"1.25rem","space-xs":"0.25rem","gutter":"1rem"},"fontFamily":{"title-md":["Inter"],"body-sm":["Inter"],"body-lg":["Newsreader"],"headline-md":["Newsreader"],"headline-lg-mobile":["Newsreader"],"body-md":["Inter"],"label-lg":["Inter"],"headline-xl":["Newsreader"],"headline-sm":["Newsreader"],"label-sm":["Inter"],"headline-xl-mobile":["Newsreader"],"label-md":["Inter"],"headline-lg":["Newsreader"]},"fontSize":{"title-md":["15px",{"lineHeight":"20px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"body-lg":["17px",{"lineHeight":"28px","fontWeight":"400"}],"headline-md":["20px",{"lineHeight":"28px","fontWeight":"500"}],"headline-lg-mobile":["22px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"400"}],"body-md":["13px",{"lineHeight":"20px","fontWeight":"400"}],"label-lg":["12px",{"lineHeight":"16px","letterSpacing":"0.06em","fontWeight":"600"}],"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"400"}],"headline-sm":["17px",{"lineHeight":"24px","fontWeight":"500"}],"label-sm":["10px",{"lineHeight":"12px","letterSpacing":"0.04em","fontWeight":"500"}],"headline-xl-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"400"}],"label-md":["11px",{"lineHeight":"14px","letterSpacing":"0.08em","fontWeight":"600"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"400"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-secondary-container selection:text-primary"><main class="w-full min-h-screen bg-surface flex items-center justify-center"><div class="flex flex-col w-full text-on-surface overflow-x-hidden">
+<!-- TOP APP/MARKETING BAR -->
+<header class="w-full bg-surface-container-lowest/90 backdrop-blur-md sticky top-0 z-50 shadow-xs border-b border-surface-container/60 transition-all duration-300">
+<div class="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
+<div class="flex items-center gap-8">
+<a class="flex items-center gap-3 group transition-transform duration-200 active:scale-95" href="#hero">
+<img alt="MARGIN Logo" class="h-6 w-auto object-contain transition-opacity group-hover:opacity-85" src="https://lh3.googleusercontent.com/aida/ALJJyrDi0FWCRyBg4cSq29bobkGR2vIlZSY-x1rfMvSJTVYQrVSxONeXWPBpKnEZWx628U2M7rHIF_cmSzxAKwyMGnE_jxL6r3mHeORt2C2RMSHMBvZkcgNGf3HnvJEkPMH2MrjD1gLDFvNytwHPRBy-GGvzs_Estc3EwJkIEr4wXNbfuGOONQX656Av13H3AC-SR5tKam4wIMaHvyj5T2NNcGmwxbJgXarYsv4xWPh53PV3kg"/>
+</a>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="relative font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-250 hover:after:w-full" href="#vision">Product Vision</a>
+<a class="relative font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-250 hover:after:w-full" href="#ieee">IEEE Formatting</a>
+<a class="relative font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-250 hover:after:w-full" href="#preview">Live Preview</a>
+<a class="relative font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-250 hover:after:w-full" href="#workflow">Workflow</a>
+<a class="relative font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-250 hover:after:w-full" href="#export">Export Tools</a>
+<a class="relative font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-250 hover:after:w-full" href="#docs">Documentation</a>
+</nav>
+</div>
+<div class="flex items-center gap-3">
+<button class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-md text-label-md text-on-surface transition-all duration-200 active:scale-95" type="button" onclick="window.location.href='/app.html'">
+<span class="material-symbols-outlined text-base">terminal</span>
+<span>Open Studio</span>
+</button>
+<button class="relative overflow-hidden inline-flex items-center gap-2 px-4 py-1.5 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md transition-all duration-200 shadow-xs hover:shadow-md active:scale-95 group" type="button" onclick="window.location.href='/app.html'">
+<span class="relative z-10">Start Writing</span>
+<span class="material-symbols-outlined text-base relative z-10 transition-transform duration-200 group-hover:translate-x-0.5">arrow_forward</span>
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+</button>
+</div>
+</div>
+</header>
+<!-- HERO SECTION -->
+<section class="relative overflow-hidden pt-16 pb-14 px-6 bg-gradient-to-b from-surface via-surface-container-low to-surface" id="hero">
+<!-- Subtle editorial grid backdrop with delicate ambient light spheres -->
+<div class="absolute inset-0 pointer-events-none opacity-40 bg-[radial-gradient(#1e3a34_0.75px,transparent_0.75px)] [background-size:24px_24px] hero-grid-bg transition-transform duration-100 ease-out"></div>
+<!-- Soft floating ambient glow blobs inspired by craft design tools -->
+<div class="absolute -top-24 left-1/4 w-96 h-96 bg-secondary-container/30 rounded-full blur-3xl pointer-events-none anim-float-slow"></div>
+<div class="absolute top-1/3 -right-20 w-80 h-80 bg-surface-container-highest/60 rounded-full blur-3xl pointer-events-none anim-float-reverse"></div>
+<div class="relative max-w-5xl mx-auto text-center flex flex-col items-center">
+<!-- Subtitle badge with gentle pulse -->
+<div class="reveal-on-scroll inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-secondary-container text-on-secondary-fixed mb-6 shadow-xs badge-glow-anim transition-transform hover:scale-105 duration-200 cursor-default">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+<span class="font-label-md text-label-md tracking-wider">ACADEMIC COMPOSITION STUDIO</span>
+</div>
+<!-- Headline with staggered entrance -->
+<h1 class="reveal-on-scroll delay-100 font-headline-xl text-headline-xl text-primary max-w-4xl tracking-tight mb-5 leading-tight">
+        Every detail has its place.
+      </h1>
+<!-- Subheading -->
+<p class="reveal-on-scroll delay-200 font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-8 leading-relaxed">
+        A focused workspace for composing, formatting, and preparing publication-ready research papers with pure typographic discipline.
+      </p>
+<!-- Action Row -->
+<div class="reveal-on-scroll delay-300 flex flex-wrap items-center justify-center gap-3.5 mb-10">
+<a class="relative overflow-hidden inline-flex items-center gap-2.5 px-6 py-3 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] group" href="/app.html">
+<span class="relative z-10">Start Writing Free</span>
+<span class="material-symbols-outlined text-lg relative z-10 transition-transform duration-200 group-hover:translate-x-0.5">edit_note</span>
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+</a>
+<a class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-lg text-label-lg transition-all duration-200 shadow-xs hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98]" href="/app.html">
+<span class="material-symbols-outlined text-lg text-secondary">visibility</span>
+<span>Explore Live Studio</span>
+</a>
+</div>
+<!-- Metadata / Trust marks -->
+<div class="reveal-on-scroll delay-400 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-1.5 transition-colors hover:text-primary">
+<span class="material-symbols-outlined text-sm text-secondary">verified</span>
+<span>Compliant with IEEE Conference Specifications</span>
+</div>
+<span class="text-outline-variant">•</span>
+<div class="flex items-center gap-1.5 transition-colors hover:text-primary">
+<span class="material-symbols-outlined text-sm text-secondary">picture_as_pdf</span>
+<span>Word (.docx) &amp; Vector PDF Export</span>
+</div>
+<span class="text-outline-variant">•</span>
+<div class="flex items-center gap-1.5 transition-colors hover:text-primary">
+<span class="material-symbols-outlined text-sm text-secondary">check_circle</span>
+<span>Zero LaTeX Headaches</span>
+</div>
+</div>
+</div>
+</section>
+<!-- INTERFACE SHOWCASE HERO DEMO -->
+<section class="w-full px-4 sm:px-8 pb-20 -mt-2 mockup-perspective" id="interface-demo">
+<div class="max-w-7xl mx-auto">
+<!-- Studio Mockup Container with dynamic hover 3D tilt & soft floating ambient animation -->
+<div class="mockup-layer rounded-xl overflow-hidden bg-surface-container-lowest border border-outline-variant/30 anim-float-slow" id="heroMockup" style="box-shadow: 0 24px 48px -12px rgba(30, 58, 52, 0.12), 0 0 0 1px rgba(30, 58, 52, 0.05);">
+<!-- Mock Window Top Bar -->
+<div class="h-11 bg-surface-container-low px-4 flex items-center justify-between border-b border-surface-container/70">
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-error/70 inline-block transition-transform hover:scale-125"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-amber-400/70 inline-block transition-transform hover:scale-125"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-secondary inline-block transition-transform hover:scale-125"></span>
+</div>
+<div class="h-4 w-px bg-outline-variant mx-1"></div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-secondary">description</span>
+<span class="font-title-md text-body-sm text-on-surface font-semibold">Autonomous_Robotics_SLAM_2025.margin</span>
+<span class="px-2 py-0.5 rounded text-[10px] bg-secondary-container text-on-secondary-fixed font-medium">IEEE Conference</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-secondary">cloud_done</span> Saved 12s ago
+            </span>
+<div class="h-4 w-px bg-outline-variant mx-1"></div>
+<button class="px-2.5 py-1 text-xs rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-medium flex items-center gap-1 transition-colors active:scale-95">
+<span class="material-symbols-outlined text-xs">undo</span> Undo
+            </button>
+<button class="px-2.5 py-1 text-xs rounded bg-primary-container hover:bg-primary text-on-primary font-medium flex items-center gap-1 shadow-xs transition-all active:scale-95">
+<span class="material-symbols-outlined text-xs">download</span> Export PDF
+            </button>
+</div>
+</div>
+<!-- 3-PANE WORKSPACE -->
+<div class="grid grid-cols-1 lg:grid-cols-12 min-h-[640px] bg-surface-container-lowest">
+<!-- LEFT INSPECTOR: Document Outline (Col 1-3) -->
+<div class="lg:col-span-3 bg-surface p-4 flex flex-col justify-between border-r border-surface-container/60">
+<div>
+<div class="flex items-center justify-between pb-3 mb-3 border-b border-surface-container/40">
+<span class="font-label-md text-label-md tracking-wider uppercase text-on-surface-variant">Paper Outline</span>
+<span class="material-symbols-outlined text-base text-secondary">format_list_bulleted</span>
+</div>
+<!-- Template Badge -->
+<div class="p-2.5 rounded-lg bg-surface-container-low mb-4 flex items-center gap-2 text-on-surface transition-transform hover:translate-x-1 duration-200">
+<span class="material-symbols-outlined text-secondary text-base">article</span>
+<span class="font-body-sm text-body-sm font-medium">IEEE 2-Column Template</span>
+</div>
+<!-- Outline Tree -->
+<div class="space-y-1">
+<div class="p-2 rounded-lg bg-secondary-container/60 text-primary font-body-sm text-body-sm font-semibold flex items-center justify-between transition-colors cursor-pointer shadow-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary">expand_more</span>
+<span>Paper Details &amp; Authors</span>
+</div>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<div class="p-2 rounded hover:bg-surface-container text-on-surface-variant font-body-sm text-body-sm flex items-center justify-between transition-colors cursor-pointer group">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-outline group-hover:text-primary transition-colors">drag_indicator</span>
+<span>I. Introduction</span>
+</div>
+<span class="font-label-sm text-[10px] text-outline">620w</span>
+</div>
+<div class="pl-6 space-y-1">
+<div class="p-1.5 rounded hover:bg-surface-container text-outline font-body-sm text-[11px] flex items-center gap-1.5 transition-colors cursor-pointer">
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>A. Background &amp; Motivation</span>
+</div>
+<div class="p-1.5 rounded hover:bg-surface-container text-outline font-body-sm text-[11px] flex items-center gap-1.5 transition-colors cursor-pointer">
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>B. Problem Formulation</span>
+</div>
+</div>
+<div class="p-2 rounded hover:bg-surface-container text-on-surface-variant font-body-sm text-body-sm flex items-center justify-between transition-colors cursor-pointer group">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-outline group-hover:text-primary transition-colors">drag_indicator</span>
+<span>II. Related Literature</span>
+</div>
+<span class="font-label-sm text-[10px] text-outline">980w</span>
+</div>
+<div class="p-2 rounded hover:bg-surface-container text-on-surface-variant font-body-sm text-body-sm flex items-center justify-between transition-colors cursor-pointer group">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-outline group-hover:text-primary transition-colors">drag_indicator</span>
+<span>III. System Architecture</span>
+</div>
+<span class="font-label-sm text-[10px] text-outline">1,450w</span>
+</div>
+<div class="p-2 rounded hover:bg-surface-container text-on-surface-variant font-body-sm text-body-sm flex items-center justify-between transition-colors cursor-pointer group">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-outline group-hover:text-primary transition-colors">drag_indicator</span>
+<span>IV. Empirical Results</span>
+</div>
+<span class="font-label-sm text-[10px] text-outline">1,120w</span>
+</div>
+<div class="p-2 rounded hover:bg-surface-container text-on-surface-variant font-body-sm text-body-sm flex items-center justify-between transition-colors cursor-pointer group">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-outline group-hover:text-primary transition-colors">drag_indicator</span>
+<span>V. Conclusion &amp; Outlook</span>
+</div>
+<span class="font-label-sm text-[10px] text-outline">410w</span>
+</div>
+<div class="p-2 rounded hover:bg-surface-container text-on-surface-variant font-body-sm text-body-sm flex items-center justify-between transition-colors cursor-pointer group">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-outline group-hover:text-primary transition-colors">bookmarks</span>
+<span>References (28 cited)</span>
+</div>
+<span class="material-symbols-outlined text-xs text-secondary">done_all</span>
+</div>
+</div>
+</div>
+<!-- Add Section Button -->
+<button class="w-full mt-4 py-2 px-3 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md flex items-center justify-center gap-1.5 transition-all duration-200 active:scale-95">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+<span>Add New Section</span>
+</button>
+</div>
+<!-- CENTER STAGE: Editorial Drafting Canvas (Col 4-8) -->
+<div class="lg:col-span-5 bg-surface-container-low p-6 overflow-y-auto max-h-[640px] flex flex-col items-center">
+<!-- Document Meta Header -->
+<div class="w-full max-w-lg mb-3 flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-1.5 font-label-sm text-label-sm uppercase tracking-wide">
+<span class="material-symbols-outlined text-xs text-secondary">mode_edit</span>
+<span>Drafting Stage</span>
+</div>
+<span class="font-label-sm text-[11px]">840px optical sheet</span>
+</div>
+<!-- Paper Sheet Simulation -->
+<div class="w-full max-w-lg bg-surface-container-lowest p-6 rounded-lg shadow-md space-y-5 transition-shadow hover:shadow-lg">
+<!-- Paper Details Header Tag -->
+<div class="flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm tracking-widest uppercase">Paper Details</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase font-semibold text-secondary">IEEE Conference</span>
+</div>
+<!-- Editable Title Field -->
+<div class="p-2 -mx-2 rounded hover:bg-surface-container-low/50 transition-colors">
+<h3 class="font-headline-md text-headline-md text-primary font-bold leading-tight">
+                  High-Throughput Vision-Inertial SLAM with Quantized Neural Feature Extraction
+                </h3>
+</div>
+<!-- Author / Affiliation Cards -->
+<div class="grid grid-cols-2 gap-3">
+<div class="p-3 rounded-lg bg-surface-container-low space-y-1.5 transition-all hover:bg-surface-container hover:shadow-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-[10px] uppercase text-outline">Author 1</span>
+<span class="text-[10px] text-secondary font-medium">Primary</span>
+</div>
+<p class="font-title-md text-body-sm font-semibold text-on-surface">Dr. Elena Vance, Ph.D.</p>
+<p class="font-body-sm text-[11px] text-on-surface-variant">e.vance@robotics-lab.mit.edu</p>
+<div class="pt-1 flex items-center gap-1 text-[10px] text-secondary font-medium">
+<span class="material-symbols-outlined text-xs">account_balance</span>
+<span>Dept. of Electrical Engineering</span>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low space-y-1.5 transition-all hover:bg-surface-container hover:shadow-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-[10px] uppercase text-outline">Author 2</span>
+<span class="text-[10px] text-outline font-medium">Co-Author</span>
+</div>
+<p class="font-title-md text-body-sm font-semibold text-on-surface">Marcus Thorne, M.Sc.</p>
+<p class="font-body-sm text-[11px] text-on-surface-variant">m.thorne@tudelft.nl</p>
+<div class="pt-1 flex items-center gap-1 text-[10px] text-secondary font-medium">
+<span class="material-symbols-outlined text-xs">account_balance</span>
+<span>Delft Center for Systems</span>
+</div>
+</div>
+</div>
+<!-- Abstract Block -->
+<div class="p-3.5 rounded-lg bg-surface space-y-2 border border-surface-container/60">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-body-sm font-bold text-primary">Abstract</span>
+<span class="font-label-sm text-[10px] text-secondary bg-secondary-container/60 px-1.5 py-0.5 rounded">Two Columns Flow</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Real-time robotic localization in sensory-deprived micro-aerial navigation demands robust feature point matching under computational strictures. In this paper, we introduce a dual-stage quantized neural descriptor tailored for 120 FPS stereo-inertial pose estimation, achieving sub-centimeter loop closure accuracy while cutting power draw by 42%.
+                </p>
+<div class="pt-1 flex flex-wrap gap-1">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-[10px] font-medium text-on-surface">SLAM</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-[10px] font-medium text-on-surface">Neural Descriptors</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-[10px] font-medium text-on-surface">Embedded FPGA</span>
+</div>
+</div>
+<!-- Section Sample In-Place with subtle live cursor -->
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<h4 class="font-headline-sm text-headline-sm text-primary">I. Introduction</h4>
+<span class="material-symbols-outlined text-sm text-outline">edit</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed relative">
+                  Simultaneous Localization and Mapping (SLAM) has long served as the sensory bedrock for unmanned flight. Recent advances in deep visual representations have mitigated perceptual aliasing; however, real-time edge integration remains prohibitive<span class="inline-block w-0.5 h-3.5 bg-primary ml-0.5 align-middle cursor-blink"></span>
+</p>
+</div>
+</div>
+</div>
+<!-- RIGHT INSPECTOR: Live Authentic IEEE Preview & Telemetry (Col 9-12) -->
+<div class="lg:col-span-4 bg-surface-container-lowest p-5 flex flex-col justify-between border-l border-surface-container/60">
+<div class="space-y-4">
+<!-- Telemetry Header -->
+<div class="flex items-center justify-between pb-2">
+<span class="font-label-md text-label-md tracking-wider uppercase text-on-surface-variant">Document Telemetry</span>
+<span class="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-fixed text-[10px] font-semibold">IEEE READY</span>
+</div>
+<!-- Metrics 2x2 Grid with hover micro-delight -->
+<div class="grid grid-cols-4 gap-2 p-3 rounded-lg bg-surface-container-low text-center">
+<div class="transition-transform hover:-translate-y-0.5">
+<span class="block font-headline-sm text-headline-sm text-primary font-bold">4,580</span>
+<span class="font-label-sm text-[10px] uppercase text-outline">Words</span>
+</div>
+<div class="transition-transform hover:-translate-y-0.5">
+<span class="block font-headline-sm text-headline-sm text-primary font-bold">7</span>
+<span class="font-label-sm text-[10px] uppercase text-outline">Sections</span>
+</div>
+<div class="transition-transform hover:-translate-y-0.5">
+<span class="block font-headline-sm text-headline-sm text-primary font-bold">6</span>
+<span class="font-label-sm text-[10px] uppercase text-outline">Figures</span>
+</div>
+<div class="transition-transform hover:-translate-y-0.5">
+<span class="block font-headline-sm text-headline-sm text-primary font-bold">2</span>
+<span class="font-label-sm text-[10px] uppercase text-outline">Tables</span>
+</div>
+</div>
+<!-- Two-Column IEEE Live Paper Preview Simulation Mini-Canvas with subtle floating physics -->
+<div class="p-3 rounded-lg bg-surface space-y-2 border border-surface-container/60 shadow-xs transition-shadow hover:shadow-sm">
+<div class="flex items-center justify-between text-xs text-on-surface-variant">
+<span class="font-label-sm text-[11px] font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-secondary">pageview</span>
+                    Page 1 of 6 (Preview)
+                  </span>
+<span class="text-[10px] text-outline">100% Zoom</span>
+</div>
+<!-- Simulated miniature IEEE Page Sheet -->
+<div class="bg-surface-container-lowest p-3 rounded shadow-inner text-[8px] leading-tight space-y-2 font-mono text-outline select-none border border-outline-variant/30">
+<div class="text-center font-bold text-primary text-[9px] uppercase tracking-tighter">
+                    HIGH-THROUGHPUT VISION-INERTIAL SLAM
+                  </div>
+<div class="text-center text-[7px] text-outline-variant pb-1">
+                    E. Vance, M. Thorne — IEEE Robotics &amp; Automation Conference
+                  </div>
+<!-- Two mini-columns -->
+<div class="grid grid-cols-2 gap-2 text-justify">
+<div class="space-y-1">
+<p class="font-semibold text-primary text-[7px]">Abstract—</p>
+<p class="text-[6.5px] leading-snug">
+                        Real-time robotic localization in sensory-deprived micro-aerial navigation demands robust feature point matching under strict edge computation constraints.
+                      </p>
+<p class="font-bold text-[7px] text-primary pt-1">I. INTRODUCTION</p>
+<p class="text-[6.5px] leading-snug">
+                        Autonomous platforms navigating dynamic GPS-denied environments require accurate trajectory estimation [1]. While visual-inertial odometry is standard, severe drift persists.
+                      </p>
+</div>
+<div class="space-y-1">
+<p class="text-[6.5px] leading-snug">
+                        Hardware acceleration on field-programmable gate arrays provides deterministic latency profiles. We demonstrate our quantized sparse front-end on benchmark flight datasets [2].
+                      </p>
+<div class="h-10 w-full rounded bg-surface-container-high flex items-center justify-center text-[7px] text-secondary">
+                        [Fig. 1: Trajectory Error]
+                      </div>
+<p class="font-bold text-[7px] text-primary pt-1">II. SYSTEM ARCHITECTURE</p>
+<p class="text-[6.5px] leading-snug">
+                        The sensor pipeline comprises global-shutter stereo cameras paired with high-frequency 400Hz IMU sampling.
+                      </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Formatting Checklist Card -->
+<div class="p-3 rounded-lg bg-surface-container-low space-y-1.5 text-xs">
+<span class="font-label-sm text-[10px] uppercase font-bold text-on-surface-variant tracking-wider block">IEEE Schema Validation</span>
+<div class="flex items-center gap-2 text-primary font-medium text-[11px]">
+<span class="material-symbols-outlined text-secondary text-sm">check_circle</span>
+<span>Title &amp; Affiliation Blocks formatted</span>
+</div>
+<div class="flex items-center gap-2 text-primary font-medium text-[11px]">
+<span class="material-symbols-outlined text-secondary text-sm">check_circle</span>
+<span>Abstract &amp; 3+ Index Terms verified</span>
+</div>
+<div class="flex items-center gap-2 text-primary font-medium text-[11px]">
+<span class="material-symbols-outlined text-secondary text-sm">check_circle</span>
+<span>Numbered roman section conventions</span>
+</div>
+<div class="flex items-center gap-2 text-primary font-medium text-[11px]">
+<span class="material-symbols-outlined text-secondary text-sm">check_circle</span>
+<span>IEEE Reference Citation bracket syntax</span>
+</div>
+</div>
+</div>
+<!-- Export Toast Notification Mockup -->
+<div class="mt-4 p-2.5 rounded-lg bg-secondary-container/70 flex items-center justify-between text-on-secondary-fixed transition-transform hover:scale-[1.01]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary">check</span>
+<span class="font-label-sm text-label-sm font-semibold">Word document exported</span>
+</div>
+<span class="text-[10px] text-on-secondary-fixed/70">1.8 MB</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Feature Callout Badges underneath mockup with smooth craft lift -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+<div class="hover-craft-card p-4 rounded-xl bg-surface-container-lowest shadow-xs border border-surface-container/60 flex items-start gap-3">
+<div class="icon-bounce p-2 rounded-lg bg-secondary-container text-secondary shrink-0">
+<span class="material-symbols-outlined text-xl">view_column</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-primary">Live IEEE Two-Column Typesetting</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Dual-column text flow, automatic hyphenation, and floating equation alignment.</p>
+</div>
+</div>
+<div class="hover-craft-card p-4 rounded-xl bg-surface-container-lowest shadow-xs border border-surface-container/60 flex items-start gap-3">
+<div class="icon-bounce p-2 rounded-lg bg-secondary-container text-secondary shrink-0">
+<span class="material-symbols-outlined text-xl">badge</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-primary">Normalized Author &amp; Affiliations</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Eliminate repetitive affiliation strings with unified metadata relational blocks.</p>
+</div>
+</div>
+<div class="hover-craft-card p-4 rounded-xl bg-surface-container-lowest shadow-xs border border-surface-container/60 flex items-start gap-3">
+<div class="icon-bounce p-2 rounded-lg bg-secondary-container text-secondary shrink-0">
+<span class="material-symbols-outlined text-xl">file_download</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-primary">One-Click PDF &amp; Word (.docx)</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Compile peer-review submissions with clean vector typography and exact margins.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- PILLARS / CORE CAPABILITIES -->
+<section class="py-20 px-6 bg-surface-container-low" id="vision">
+<div class="max-w-7xl mx-auto">
+<div class="max-w-3xl mb-14 reveal-on-scroll">
+<div class="inline-flex items-center gap-1.5 font-label-md text-label-md text-secondary tracking-widest uppercase mb-2">
+<span>Engineered for Academic Rigor</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">
+          Purpose-built for scholars who value precision over guesswork.
+        </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-3">
+          Traditional word processors collapse under complex two-column figures. LaTeX requires compiling cryptic errors. MARGIN balances pure typographic accuracy with immediate desktop composition.
+        </p>
+</div>
+<!-- 4 Pillars Bento Grid with staggered reveal and subtle craft micro-interactions -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Pillar 1 -->
+<div class="reveal-on-scroll delay-100 hover-craft-card bg-surface-container-lowest p-6 rounded-xl shadow-xs border border-surface-container/50 flex flex-col justify-between" id="workflow">
+<div>
+<div class="icon-bounce w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-secondary mb-5">
+<span class="material-symbols-outlined text-2xl">account_tree</span>
+</div>
+<span class="font-label-sm text-[10px] font-bold text-secondary uppercase tracking-widest">Pillar 01</span>
+<h3 class="font-title-md text-title-md text-primary font-bold mt-1 mb-2">Structured Academic Writing</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Draggable hierarchical outline tree with automated Roman numeral updates. Write focused sections independently without jumping across 40-page monolithic documents.
+            </p>
+</div>
+<div class="pt-6 mt-6 bg-gradient-to-t from-surface-container-low/40 to-transparent p-3 rounded-lg text-xs space-y-1.5">
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-xs text-secondary">check</span>
+<span>Reorder sections with handles</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-xs text-secondary">check</span>
+<span>Anchored equations &amp; figures</span>
+</div>
+</div>
+</div>
+<!-- Pillar 2 -->
+<div class="reveal-on-scroll delay-200 hover-craft-card bg-surface-container-lowest p-6 rounded-xl shadow-xs border border-surface-container/50 flex flex-col justify-between" id="ieee">
+<div>
+<div class="icon-bounce w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-secondary mb-5">
+<span class="material-symbols-outlined text-2xl">grid_view</span>
+</div>
+<span class="font-label-sm text-[10px] font-bold text-secondary uppercase tracking-widest">Pillar 02</span>
+<h3 class="font-title-md text-title-md text-primary font-bold mt-1 mb-2">IEEE-Style Formatting</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Strict conformance to IEEE transactions &amp; conference margins. Instant handling of abstract spans, author grids, bracketed citations, and capitalized headings.
+            </p>
+</div>
+<div class="pt-6 mt-6 bg-gradient-to-t from-surface-container-low/40 to-transparent p-3 rounded-lg text-xs space-y-1.5">
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-xs text-secondary">check</span>
+<span>A4 &amp; US Letter presets</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-xs text-secondary">check</span>
+<span>IEEE citation bracket engine</span>
+</div>
+</div>
+</div>
+<!-- Pillar 3 -->
+<div class="reveal-on-scroll delay-300 hover-craft-card bg-surface-container-lowest p-6 rounded-xl shadow-xs border border-surface-container/50 flex flex-col justify-between" id="preview">
+<div>
+<div class="icon-bounce w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-secondary mb-5">
+<span class="material-symbols-outlined text-2xl">sync</span>
+</div>
+<span class="font-label-sm text-[10px] font-bold text-secondary uppercase tracking-widest">Pillar 03</span>
+<h3 class="font-title-md text-title-md text-primary font-bold mt-1 mb-2">Live Document Preview</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Sub-millisecond dual preview showing authentic pagination, column balances, and overflow margins as you type. What you see is mathematically what compiles.
+            </p>
+</div>
+<div class="pt-6 mt-6 bg-gradient-to-t from-surface-container-low/40 to-transparent p-3 rounded-lg text-xs space-y-1.5">
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-xs text-secondary">check</span>
+<span>True paper pagination sheets</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-xs text-secondary">check</span>
+<span>Synchronized cursor tracking</span>
+</div>
+</div>
+</div>
+<!-- Pillar 4 -->
+<div class="reveal-on-scroll delay-400 hover-craft-card bg-surface-container-lowest p-6 rounded-xl shadow-xs border border-surface-container/50 flex flex-col justify-between" id="docs">
+<div>
+<div class="icon-bounce w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-secondary mb-5">
+<span class="material-symbols-outlined text-2xl">fact_check</span>
+</div>
+<span class="font-label-sm text-[10px] font-bold text-secondary uppercase tracking-widest">Pillar 04</span>
+<h3 class="font-title-md text-title-md text-primary font-bold mt-1 mb-2">Organized Paper Composition</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Real-time submission telemetry. Word counts, section density, schema validation rules, and zero compile failures or missing bracket errors.
+            </p>
+</div>
+<div class="pt-6 mt-6 bg-gradient-to-t from-surface-container-low/40 to-transparent p-3 rounded-lg text-xs space-y-1.5">
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-xs text-secondary">check</span>
+<span>Live manuscript validation</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-xs text-secondary">check</span>
+<span>Zero-syntax compile failures</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- INTERACTIVE COMPARISON / VISUAL BREAKDOWN SECTION -->
+<section class="py-20 px-6 bg-surface">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+<!-- Left Editorial Description -->
+<div class="lg:col-span-5 space-y-6 reveal-on-scroll">
+<div class="inline-flex items-center gap-1.5 font-label-md text-label-md text-secondary uppercase tracking-wider">
+<span>Author &amp; Affiliation Normalization</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight leading-tight">
+            Stop wrestling with manual author grids.
+          </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+            In standard publishing software, formatting multi-author affiliations across universities is notoriously brittle. One extra co-author breaks the entire two-column layout.
+          </p>
+<div class="space-y-3 pt-2">
+<div class="flex items-start gap-3 p-3.5 rounded-lg bg-surface-container-low transition-all hover:bg-surface-container/70">
+<span class="material-symbols-outlined text-secondary mt-0.5">verified_user</span>
+<div>
+<h4 class="font-title-md text-body-md font-semibold text-primary">Relational Affiliation Mapping</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Define departments and laboratories once; bind them to any number of authors with simple checkboxes.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3.5 rounded-lg bg-surface-container-low transition-all hover:bg-surface-container/70">
+<span class="material-symbols-outlined text-secondary mt-0.5">auto_stories</span>
+<div>
+<h4 class="font-title-md text-body-md font-semibold text-primary">Automated Spanning Banners</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">The studio guarantees that author blocks dynamically span both columns cleanly before the abstract splits into two.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Visual Showcase -->
+<div class="lg:col-span-7 reveal-on-scroll delay-200">
+<div class="rounded-xl p-6 bg-surface-container-lowest shadow-lg border border-surface-container/60 space-y-6 transition-all hover:shadow-xl">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">group</span>
+<span class="font-title-md text-title-md text-primary">Live Author Architecture</span>
+</div>
+<button class="px-2.5 py-1 text-xs rounded bg-surface-container hover:bg-surface-container-high text-secondary font-medium flex items-center gap-1 transition-all active:scale-95">
+<span class="material-symbols-outlined text-xs">add</span> Add Author
+              </button>
+</div>
+<!-- Author Card List -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="p-4 rounded-lg bg-surface-container-low space-y-3 transition-transform hover:-translate-y-0.5">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-[10px] uppercase font-bold text-secondary">AUTHOR 1</span>
+<span class="text-xs text-error cursor-pointer hover:underline">Remove</span>
+</div>
+<div>
+<label class="block font-label-sm text-[10px] uppercase text-outline mb-1">Full Name &amp; Credentials</label>
+<div class="p-2 rounded bg-surface-container-lowest font-body-sm text-body-sm text-on-surface font-medium border border-surface-container/60">
+                    Dr. Hiroshi Tanaka
+                  </div>
+</div>
+<div>
+<label class="block font-label-sm text-[10px] uppercase text-outline mb-1">Email Address</label>
+<div class="p-2 rounded bg-surface-container-lowest font-body-sm text-body-sm text-on-surface border border-surface-container/60">
+                    tanaka@robotics.u-tokyo.ac.jp
+                  </div>
+</div>
+<div>
+<label class="block font-label-sm text-[10px] uppercase text-outline mb-1">Linked Affiliation</label>
+<div class="flex items-center gap-2 p-2 rounded bg-secondary-container/50 text-on-secondary-fixed text-xs font-medium">
+<span class="material-symbols-outlined text-sm text-secondary">check_box</span>
+<span>University of Tokyo — Dept. of Aeronautics</span>
+</div>
+</div>
+</div>
+<div class="p-4 rounded-lg bg-surface-container-low space-y-3 transition-transform hover:-translate-y-0.5">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-[10px] uppercase font-bold text-secondary">AUTHOR 2</span>
+<span class="text-xs text-error cursor-pointer hover:underline">Remove</span>
+</div>
+<div>
+<label class="block font-label-sm text-[10px] uppercase text-outline mb-1">Full Name &amp; Credentials</label>
+<div class="p-2 rounded bg-surface-container-lowest font-body-sm text-body-sm text-on-surface font-medium border border-surface-container/60">
+                    Sarah Jenkins, Ph.D.
+                  </div>
+</div>
+<div>
+<label class="block font-label-sm text-[10px] uppercase text-outline mb-1">Email Address</label>
+<div class="p-2 rounded bg-surface-container-lowest font-body-sm text-body-sm text-on-surface border border-surface-container/60">
+                    s.jenkins@oxford.ac.uk
+                  </div>
+</div>
+<div>
+<label class="block font-label-sm text-[10px] uppercase text-outline mb-1">Linked Affiliation</label>
+<div class="flex items-center gap-2 p-2 rounded bg-secondary-container/50 text-on-secondary-fixed text-xs font-medium">
+<span class="material-symbols-outlined text-sm text-secondary">check_box</span>
+<span>Oxford Robotics Institute</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Abstract Placement Toggle with smooth interactive switching -->
+<div class="p-4 rounded-lg bg-surface flex flex-wrap items-center justify-between gap-4 border border-surface-container/60">
+<div class="space-y-0.5">
+<span class="font-title-md text-body-sm font-semibold text-primary">Abstract Flow Behavior</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Control how the abstract is positioned before the primary column break.</p>
+</div>
+<div class="flex items-center gap-1.5 p-1 rounded-lg bg-surface-container" id="abstractToggleContainer">
+<button class="px-3 py-1 rounded text-xs font-semibold bg-surface-container-lowest text-primary shadow-xs transition-all duration-200" id="btnToggleTwoCol" onclick="setActiveToggle('col')">Two Columns</button>
+<button class="px-3 py-1 rounded text-xs font-medium text-outline hover:text-on-surface transition-all duration-200" id="btnToggleFullWidth" onclick="setActiveToggle('full')">Full Width Banner</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- EXPORT & INTEROPERABILITY SECTION -->
+<section class="py-20 px-6 bg-surface-container-low" id="export">
+<div class="max-w-7xl mx-auto">
+<div class="text-center max-w-2xl mx-auto mb-14 reveal-on-scroll">
+<div class="inline-flex items-center gap-1.5 font-label-md text-label-md text-secondary uppercase tracking-wider mb-2">
+<span>Complete Interoperability</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">
+          Export once. Ready for review.
+        </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">
+          Dual output pathways maintain complete academic continuity whether your conference chair requires a locked PDF or an editable Word submission.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+<!-- Vector PDF Export -->
+<div class="reveal-on-scroll delay-100 hover-craft-card p-8 rounded-xl bg-surface-container-lowest shadow-md border border-surface-container/50 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="icon-bounce w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-3xl">picture_as_pdf</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-fixed text-xs font-semibold">Camera-Ready</span>
+</div>
+<h3 class="font-title-md text-headline-sm text-primary font-bold mb-2">Vector PDF Engine</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6">
+              Generates PDF/A archival compliant documents with embedded Type-1 and TrueType fonts, CMYK color profiles, vector equations, and lossless chart rendering.
+            </p>
+<div class="space-y-2 font-label-sm text-xs text-on-surface mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary">check_circle</span>
+<span>Exact 0.75 in top &amp; 0.625 in side margins</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary">check_circle</span>
+<span>Crisp vector mathematical formulas</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary">check_circle</span>
+<span>Automated page numbering &amp; headers</span>
+</div>
+</div>
+</div>
+<button class="relative overflow-hidden w-full py-2.5 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-2 transition-all duration-200 active:scale-[0.98] group shadow-xs hover:shadow-md">
+<span class="material-symbols-outlined text-base">download</span>
+<span class="relative z-10">Download Sample PDF</span>
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+</button>
+</div>
+<!-- Microsoft Word (.docx) Export -->
+<div class="reveal-on-scroll delay-200 hover-craft-card p-8 rounded-xl bg-surface-container-lowest shadow-md border border-surface-container/50 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="icon-bounce w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl">description</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-surface-container text-on-surface text-xs font-semibold">Fully Editable</span>
+</div>
+<h3 class="font-title-md text-headline-sm text-primary font-bold mb-2">Native Word (.docx)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6">
+              Exports true OOXML formats with native Microsoft Word headings, multi-column section breaks, editable equations (OMML), and structured tables preserved.
+            </p>
+<div class="space-y-2 font-label-sm text-xs text-on-surface mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary">check_circle</span>
+<span>Editable styles mapped to IEEE standards</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary">check_circle</span>
+<span>Seamless track changes for peer review</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary">check_circle</span>
+<span>Preserves table borders and row alignments</span>
+</div>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center justify-center gap-2 transition-all duration-200 active:scale-[0.98]">
+<span class="material-symbols-outlined text-base">file_open</span>
+<span>Download Sample .DOCX</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- EDITORIAL QUOTE / PHILOSOPHY SECTION -->
+<section class="py-24 px-6 bg-primary text-on-primary relative overflow-hidden">
+<!-- Subtle atmospheric depth with delicate background typographic grid lines & ambient light -->
+<div class="absolute inset-0 pointer-events-none opacity-5 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+<div class="absolute -right-32 -bottom-32 w-96 h-96 bg-primary-container rounded-full blur-3xl opacity-40 pointer-events-none"></div>
+<div class="absolute -left-32 -top-32 w-96 h-96 bg-secondary-container/20 rounded-full blur-3xl opacity-30 pointer-events-none"></div>
+<div class="relative max-w-4xl mx-auto text-center flex flex-col items-center reveal-on-scroll">
+<span class="material-symbols-outlined text-5xl text-primary-fixed-dim/40 mb-6 anim-gentle-float">format_quote</span>
+<blockquote class="font-headline-xl text-headline-lg md:text-headline-xl text-surface font-normal leading-tight tracking-tight mb-8">
+        “Not a generic word processor. Not an AI writing chatbot. A dedicated composition instrument built for academic rigor.”
+      </blockquote>
+<div class="flex flex-col items-center">
+<span class="font-title-md text-body-md font-semibold tracking-wide text-primary-fixed">The MARGIN Manifesto</span>
+<span class="font-body-sm text-body-sm text-surface-dim mt-0.5">Designed in Cambridge &amp; Zurich for the scientific community</span>
+</div>
+</div>
+</section>
+<!-- FINAL CALL TO ACTION -->
+<section class="py-16 px-6 bg-surface-container-lowest">
+<div class="max-w-4xl mx-auto p-10 rounded-2xl bg-surface-container-low text-center flex flex-col items-center space-y-6 reveal-on-scroll border border-surface-container/60 shadow-sm">
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">
+        Ready to author your next publication?
+      </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+        Join over 14,000 university researchers, doctoral candidates, and IEEE members composing cleaner manuscripts today.
+      </p>
+<div class="flex flex-wrap items-center justify-center gap-3">
+<button class="relative overflow-hidden px-6 py-3 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] flex items-center gap-2 group" onclick="window.location.href='/app.html'">
+<span class="relative z-10">Launch Margin Studio</span>
+<span class="material-symbols-outlined text-lg relative z-10 transition-transform duration-200 group-hover:translate-x-0.5">arrow_forward</span>
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+</button>
+<button class="px-5 py-3 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.98]">
+<span>Read the Formatting Guide</span>
+</button>
+</div>
+<span class="font-label-sm text-label-sm text-outline">No account required to draft. Local browser storage guaranteed.</span>
+</div>
+</section>
+<!-- FOOTER -->
+<footer class="w-full bg-surface-container-low pt-12 pb-10 px-6 border-t border-surface-container/60">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-2 md:grid-cols-5 gap-8 pb-10">
+<!-- Brand & Mission (Col 1-2) -->
+<div class="col-span-2 space-y-4">
+<div class="flex items-center gap-3">
+<img alt="MARGIN Logo" class="h-6 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrDi0FWCRyBg4cSq29bobkGR2vIlZSY-x1rfMvSJTVYQrVSxONeXWPBpKnEZWx628U2M7rHIF_cmSzxAKwyMGnE_jxL6r3mHeORt2C2RMSHMBvZkcgNGf3HnvJEkPMH2MrjD1gLDFvNytwHPRBy-GGvzs_Estc3EwJkIEr4wXNbfuGOONQX656Av13H3AC-SR5tKam4wIMaHvyj5T2NNcGmwxbJgXarYsv4xWPh53PV3kg"/>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm leading-relaxed">
+            Desktop-grade composition software for academic writers, peer-review committees, and technical researchers.
+          </p>
+<div class="flex items-center gap-3 pt-2 text-outline">
+<span class="material-symbols-outlined text-xl hover:text-primary transition-colors cursor-pointer hover:scale-110">terminal</span>
+<span class="material-symbols-outlined text-xl hover:text-primary transition-colors cursor-pointer hover:scale-110">code</span>
+<span class="material-symbols-outlined text-xl hover:text-primary transition-colors cursor-pointer hover:scale-110">share</span>
+</div>
+</div>
+<!-- Future Development -->
+<div class="col-span-2 md:col-span-3 space-y-3 md:pl-8">
+<span class="font-label-md text-label-md font-bold text-primary uppercase tracking-wider">Future Development</span>
+<ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-start gap-2"><span class="text-primary/70 select-none">&bull;</span><span>Advanced Citation &amp; BibTeX Integration</span></li>
+<li class="flex items-start gap-2"><span class="text-primary/70 select-none">&bull;</span><span>Expanded Academic Template Library</span></li>
+<li class="flex items-start gap-2"><span class="text-primary/70 select-none">&bull;</span><span>Collaborative Writing &amp; Peer Review</span></li>
+<li class="flex items-start gap-2"><span class="text-primary/70 select-none">&bull;</span><span>Advanced Equation, Table &amp; Figure Tools</span></li>
+<li class="flex items-start gap-2"><span class="text-primary/70 select-none">&bull;</span><span>Cloud Synchronization</span></li>
+</ul>
+</div>
+</div>
+<!-- Bottom Bar -->
+<div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-outline font-label-sm text-label-sm gap-4 border-t border-surface-container/50">
+<span>© 2025 MARGIN Studio Inc. All rights reserved. Peer-reviewed layout standards compliant.</span>
+<div class="flex items-center gap-4">
+<span class="hover:text-primary transition-colors cursor-pointer">Terms of Service</span>
+<span>•</span>
+<span class="hover:text-primary transition-colors cursor-pointer">Privacy Notice</span>
+<span>•</span>
+<span class="hover:text-primary transition-colors cursor-pointer">Telemetry Status</span>
+</div>
+</div>
+</div>
+</footer>
+</div></main>
+<!-- JAVASCRIPT FOR SCROLL REVEAL & CRAFT PARALLAX PHYSICS -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Intersection Observer for Scroll Reveals
+  const revealElements = document.querySelectorAll('.reveal-on-scroll');
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-revealed');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  revealElements.forEach(el => observer.observe(el));
+
+  // 2. Parallax Mouse Tilt on Hero Mockup Canvas
+  const heroSection = document.getElementById('hero');
+  const mockup = document.getElementById('heroMockup');
+  const gridBg = document.querySelector('.hero-grid-bg');
+
+  if (heroSection && mockup) {
+    let targetRotateX = 0;
+    let targetRotateY = 0;
+    let currentRotateX = 0;
+    let currentRotateY = 0;
+    let isHovering = false;
+
+    window.addEventListener('mousemove', (e) => {
+      const { innerWidth, innerHeight } = window;
+      const xRatio = (e.clientX / innerWidth) - 0.5;
+      const yRatio = (e.clientY / innerHeight) - 0.5;
+
+      // Subtle tilt limits (max ~1.5 deg tilt, 6px subtle translation)
+      targetRotateY = xRatio * 2.5;
+      targetRotateX = -yRatio * 2.5;
+
+      if (gridBg) {
+        gridBg.style.transform = `translate(${xRatio * 8}px, ${yRatio * 8}px)`;
+      }
+    });
+
+    const updateTilt = () => {
+      currentRotateX += (targetRotateX - currentRotateX) * 0.08;
+      currentRotateY += (targetRotateY - currentRotateY) * 0.08;
+
+      if (mockup) {
+        mockup.style.transform = `rotateX(${currentRotateX.toFixed(2)}deg) rotateY(${currentRotateY.toFixed(2)}deg)`;
+      }
+      requestAnimationFrame(updateTilt);
+    };
+    updateTilt();
+  }
+});
+
+// Interactive toggle function for Abstract flow
+function setActiveToggle(type) {
+  const colBtn = document.getElementById('btnToggleTwoCol');
+  const fullBtn = document.getElementById('btnToggleFullWidth');
+  if (!colBtn || !fullBtn) return;
+
+  if (type === 'col') {
+    colBtn.className = "px-3 py-1 rounded text-xs font-semibold bg-surface-container-lowest text-primary shadow-xs transition-all duration-200";
+    fullBtn.className = "px-3 py-1 rounded text-xs font-medium text-outline hover:text-on-surface transition-all duration-200";
+  } else {
+    fullBtn.className = "px-3 py-1 rounded text-xs font-semibold bg-surface-container-lowest text-primary shadow-xs transition-all duration-200";
+    colBtn.className = "px-3 py-1 rounded text-xs font-medium text-outline hover:text-on-surface transition-all duration-200";
+  }
+}
+</script>
+</body></html>
