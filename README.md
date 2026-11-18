@@ -1,6 +1,6 @@
-# Research Paper Builder
+# Margin
 
-Research Paper Builder is a React + Vite application for creating and formatting research papers in an IEEE conference style. It provides a structured alternative to manually assembling document layouts, sections, metadata, references, and academic content.
+Margin is a React + Vite application for creating and formatting research papers in an IEEE conference style. It provides a structured alternative to manually assembling document layouts, sections, metadata, references, and academic content.
 
 ## Features
 
